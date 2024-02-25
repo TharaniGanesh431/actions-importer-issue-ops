@@ -32,14 +32,15 @@ env:
 jobs:
   execute-actions-importer:
     runs-on: ubuntu-latest
+    container: ruby
     outputs:
       command: ${{ steps.prepare.outputs.command }}
       log-filename: ${{ steps.logs.outputs.filename }}
     steps:
+      - name: Install GH
+        run: apt update && apt install -y gh
       - name: Install GitHub Actions Importer
-        run: |
-          gh actions-importer version || gh extension install github/gh-actions-importer
-          gh actions-importer update
+        run: gh extension install github/gh-actions-importer
         env:
           GH_TOKEN: ${{ github.token }}
       - uses: actions/github-script@v6
@@ -53,10 +54,6 @@ jobs:
               labels: ['actions-importer-running']
             })
       - uses: actions/checkout@v3
-      - uses: ruby/setup-ruby@v1
-        # ImageOs must be configured to match the OS of the runner when using self-hosted runners.
-        # env:
-        #     ImageOS: ubuntu22
       - name: Install Dependencies
         run: bundle install
         env:
