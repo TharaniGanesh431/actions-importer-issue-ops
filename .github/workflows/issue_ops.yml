@@ -94,51 +94,23 @@ jobs:
 #      - name: docker hello world
 #        run: docker run hello-world
       - run: gh actions-importer update
+      - run: mkdir -p ~/varsh
+      - run: sudo usermod -d /github/home/varsh 0
+      - run: cd
       - run: pwd && ls -al
       - run: ls /github/home -al
-      - run: touch /github/home/abc.log
-      - run: touch ~/abc2.log
-      - run: ls /github/home -al
-      - run: ls ~ -al
       - name: execute actions-importer
         run: |
           gh actions-importer ${{ steps.prepare.outputs.command }} ${{ steps.prepare.outputs.provider }} \
             ${{ steps.prepare.outputs.args }} \
             --output-dir varsh
       - run: pwd && ls -al
-      - run: cd ~ && ls -al
-#      - run: ls -al /home/runner/work/_temp/_github_home
-#      - run: ls -al /home/runner/work/_temp/_github_workflow
-#      - run: ls -al /home/runner/work
-#      - run: ls -al /home/runner/runners/2.313.0/externals
-#      - run: ls -al /home/runner/work/_temp
-#      - run: ls -al /home/runner/work/_actions
-#      - run: ls -al /opt/hostedtoolcache
-#      - run: ls -al /github/home
-#      - run: ls -al /github/workflow
-#      - run: ls -al /__t
-#      - run: ls -al /__w/_temp/_actions
-#      - run: ls -al /__w/_temp/_github_workflow
-#      - run: ls -al /__w/_github_home
-#      - run: ls -al /__w/_temp
-#      - run: ls -al /__w
-#      - run: ls -al /home
-#      - run: find / -type d -name "varsh"
-#      - run: find / -type f -name "hello_world.yml"
-      - run: ls /.dockerenv/ -al
+      - run: ls /github/home -al
       - uses: actions/upload-artifact@v2
         if: always()
         with:
           path: varsh
           name: output
-#      - run: ls / -al
-#      - run: ls /home -al
-#      - run: ls /github -al
-#      - run: ls /media -al
-#      - run: ls /mnt -al
-#      - run: ls /tmp -al
-#      - run: ls /usr -al
-#      - run: ls /var -al
       - if: always()
         id: logs
         run: |
