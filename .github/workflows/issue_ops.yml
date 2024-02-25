@@ -90,7 +90,7 @@ jobs:
       - run: ls $HOME -R
       - name: execute actions-importer
         run: |
-          gh actions-importer ${{ steps.prepare.outputs.command }} ${{ steps.prepare.outputs.provider }} ${{ steps.prepare.outputs.args }} --output-dir results/output
+          cd /github/home && gh actions-importer ${{ steps.prepare.outputs.command }} ${{ steps.prepare.outputs.provider }} ${{ steps.prepare.outputs.args }} --output-dir output
       - run: echo $HOME
       - run: ls $HOME/ -R
       - uses: actions/upload-artifact@v2
