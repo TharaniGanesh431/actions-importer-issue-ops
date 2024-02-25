@@ -86,18 +86,12 @@ jobs:
       - run: apt-get -y install docker-ce
       - run: chmod 666 /var/run/docker.sock
       - run: gh actions-importer update
-#      - run: pwd && ls . -R
       - run: echo $HOME
-      - run: env | grep HOME
       - run: ls $HOME -R
       - name: execute actions-importer
         run: |
-          mkdir $HOME/results && \
-          cd $HOME/results/ && \
-          gh actions-importer ${{ steps.prepare.outputs.command }} ${{ steps.prepare.outputs.provider }} ${{ steps.prepare.outputs.args }} --output-dir output
-#      - run: pwd && ls . -R
+          gh actions-importer ${{ steps.prepare.outputs.command }} ${{ steps.prepare.outputs.provider }} ${{ steps.prepare.outputs.args }} --output-dir /results/output
       - run: echo $HOME
-      - run: env | grep HOME
       - run: ls $HOME/results/ -R
       - uses: actions/upload-artifact@v2
         if: always()
