@@ -96,19 +96,19 @@ jobs:
         run: docker run hello-world
       - run: gh actions-importer update
       - run: pwd
-      - run: ls -al ~/output
+      - run: ls
       - name: execute actions-importer
         run: |
           gh actions-importer ${{ steps.prepare.outputs.command }} ${{ steps.prepare.outputs.provider }} \
             ${{ steps.prepare.outputs.args }} \
             --output-dir ~/output
-      - run: ls -al ~/output
+      - run: ls
       - uses: actions/upload-artifact@v2
         if: always()
         with:
           path: ~/output/
           name: output
-      - run: ls -al ~/output
+      - run: ls
       - if: always()
         id: logs
         run: |
