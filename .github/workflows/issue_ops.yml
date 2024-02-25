@@ -85,22 +85,22 @@ jobs:
       - run: apt-get update
       - run: apt-get -y install docker-ce
       - run: chmod 666 /var/run/docker.sock
-      - name: Docker version
-        run: docker version
+#      - name: Docker version
+#        run: docker version
       - run: gh actions-importer update
-      - run: pwd && ls -al
-      - run: cd /github/home/container
-      - run: pwd && ls -al
+#      - run: pwd && ls -al
+#      - run: cd /github/home/container
+#      - run: pwd && ls -al
       - name: execute actions-importer
         run: |
           cd /github/home/container && gh actions-importer ${{ steps.prepare.outputs.command }} ${{ steps.prepare.outputs.provider }} \
             ${{ steps.prepare.outputs.args }} \
             --output-dir output
-      - run: pwd && ls -al
-      - run: ls /github/home/container -al
-      - run: ls /github/home/container/output -al
-      - run: ls /github/home/container/output -R
-      - run: find /github/home/container/output -mindepth 3 -maxdepth 3 -type d
+#      - run: pwd && ls -al
+#      - run: ls /github/home/container -al
+#      - run: ls /github/home/container/output -al
+#      - run: ls /github/home/container/output -R
+#      - run: find /github/home/container/output -mindepth 3 -maxdepth 3 -type d
       - uses: actions/upload-artifact@v2
         if: always()
         with:
