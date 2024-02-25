@@ -35,7 +35,7 @@ jobs:
     runs-on: ubuntu-latest
     container:
       image: ruby
-#      options: -e "HOME=/github/home/container" -v "/github/home/":"/github/home/container"
+      options: -e "HOME=/github/home/container" -v "/github/home/":"/github/home/container"
     outputs:
       command: ${{ steps.prepare.outputs.command }}
       log-filename: ${{ steps.logs.outputs.filename }}
