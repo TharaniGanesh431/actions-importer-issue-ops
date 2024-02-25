@@ -94,9 +94,7 @@ jobs:
         run: |
           mkdir $HOME/results && \
           cd $HOME/results/ && \
-          gh actions-importer ${{ steps.prepare.outputs.command }} 
-            ${{ steps.prepare.outputs.provider }} ${{ steps.prepare.outputs.args }} \
-            --output-dir output
+          gh actions-importer ${{ steps.prepare.outputs.command }} ${{ steps.prepare.outputs.provider }} ${{ steps.prepare.outputs.args }} --output-dir output
 #      - run: pwd && ls . -R
       - run: echo $HOME
       - run: env | grep HOME
