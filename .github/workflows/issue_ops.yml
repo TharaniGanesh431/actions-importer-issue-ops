@@ -96,7 +96,7 @@ jobs:
       - run: gh actions-importer update
 #      - run: mkdir -p ~/varsh
 #      - run: usermod -d /github/home/varsh 0
-      - run: cd ~
+      - run: cd /github/home
       - run: pwd && ls -al
 #      - run: ls /github/home -al
       - name: execute actions-importer
