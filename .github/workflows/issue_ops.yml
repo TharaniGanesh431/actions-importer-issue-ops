@@ -76,11 +76,13 @@ jobs:
             echo "Unable to determine command"
             exit 1
           fi
+      - name: check actions-importer
+        run: gh actions-importer -h
       - name: execute actions-importer
         run: |
           gh actions-importer ${{ steps.prepare.outputs.command }} ${{ steps.prepare.outputs.provider }} \
             ${{ steps.prepare.outputs.args }} \
-            --output-dir output --verbose -v
+            --output-dir output
       - uses: actions/upload-artifact@v2
         if: always()
         with:
