@@ -100,8 +100,16 @@ jobs:
         run: |
           gh actions-importer ${{ steps.prepare.outputs.command }} ${{ steps.prepare.outputs.provider }} \
             ${{ steps.prepare.outputs.args }} \
-            --output-dir output
+            --output-dir varsh
       - run: pwd && ls -al
+      - run: find / -type d -name "varsh"
+      - run: find /home -type d -name "varsh"
+      - run: find /github -type d -name "varsh"
+      - run: find /media -type d -name "varsh"
+      - run: find /mnt -type d -name "varsh"
+      - run: find /tmp -type d -name "varsh"
+      - run: find /usr -type d -name "varsh"
+      - run: find /var -type d -name "varsh"
       - run: find / -type f -name "hello_world.yml"
       - uses: actions/upload-artifact@v2
         if: always()
@@ -109,7 +117,13 @@ jobs:
           path: /output/
           name: output
       - run: ls / -al
+      - run: ls /home -al
       - run: ls /github -al
+      - run: ls /media -al
+      - run: ls /mnt -al
+      - run: ls /tmp -al
+      - run: ls /usr -al
+      - run: ls /var -al
       - if: always()
         id: logs
         run: |
