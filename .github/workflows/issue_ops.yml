@@ -114,31 +114,31 @@ jobs:
 #      - run: ls -al /home/runner/work/_temp
 #      - run: ls -al /home/runner/work/_actions
 #      - run: ls -al /opt/hostedtoolcache
-      - run: ls -al /github/home
-      - run: ls -al /github/workflow
-      - run: ls -al /__t
-      - run: ls -al /__w/_temp/_actions
-      - run: ls -al /__w/_temp/_github_workflow
-      - run: ls -al /__w/_github_home
-      - run: ls -al /__w/_temp
-      - run: ls -al /__w
-      - run: ls -al /home
-      - run: find / -type d -name "varsh"
-      - run: find / -type f -name "hello_world.yml"
+#      - run: ls -al /github/home
+#      - run: ls -al /github/workflow
+#      - run: ls -al /__t
+#      - run: ls -al /__w/_temp/_actions
+#      - run: ls -al /__w/_temp/_github_workflow
+#      - run: ls -al /__w/_github_home
+#      - run: ls -al /__w/_temp
+#      - run: ls -al /__w
+#      - run: ls -al /home
+#      - run: find / -type d -name "varsh"
+#      - run: find / -type f -name "hello_world.yml"
       - run: ls /.dockerenv/ -al
       - uses: actions/upload-artifact@v2
         if: always()
         with:
           path: varsh
           name: output
-      - run: ls / -al
-      - run: ls /home -al
-      - run: ls /github -al
-      - run: ls /media -al
-      - run: ls /mnt -al
-      - run: ls /tmp -al
-      - run: ls /usr -al
-      - run: ls /var -al
+#      - run: ls / -al
+#      - run: ls /home -al
+#      - run: ls /github -al
+#      - run: ls /media -al
+#      - run: ls /mnt -al
+#      - run: ls /tmp -al
+#      - run: ls /usr -al
+#      - run: ls /var -al
       - if: always()
         id: logs
         run: |
