@@ -80,12 +80,12 @@ jobs:
             exit 1
           fi
       - name: Prepare docker installation
-        run: apt-get update && \
-          apt-get install -y apt-transport-https ca-certificates curl software-properties-common && \
+        run: apt update && \
+          apt install -y apt-transport-https ca-certificates curl software-properties-common && \
           curl -fsSL https://download.docker.com/linux/debian/gpg | apt-key add - \
           add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/debian $(lsb_release -cs) stable"
       - name: Install docker
-        run: apt-get update -y && apt-get -y install docker-ce
+        run: apt update -y && apt -y install docker-ce
       - name: Docker version
         run: docker version
       - name: docker hello world
