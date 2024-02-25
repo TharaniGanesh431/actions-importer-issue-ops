@@ -114,12 +114,12 @@ jobs:
       - uses: actions/upload-artifact@v2
         if: always()
         with:
-          path: varsh
+          path: /github/home/varsh/varsh/varsh
           name: output
       - if: always()
         id: logs
         run: |
-          path=$(ls varsh/log/*.log | head -1)
+          path=$(ls /github/home/varsh/varsh/varsh/log/*.log | head -1)
           filename=$(basename "$path")
           echo "LOG_FILE_PATH=$path" >> $GITHUB_ENV
           echo "filename=$filename" >> $GITHUB_OUTPUT
