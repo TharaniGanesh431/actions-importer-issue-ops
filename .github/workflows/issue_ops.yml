@@ -35,6 +35,7 @@ jobs:
     runs-on: ubuntu-latest
     container:
       image: ruby
+      options: --user root
     outputs:
       command: ${{ steps.prepare.outputs.command }}
       log-filename: ${{ steps.logs.outputs.filename }}
@@ -116,14 +117,15 @@ jobs:
       - run: ls -al /github/home
       - run: ls -al /github/workflow
       - run: ls -al /__t
-      - run: ls -al /__w/_actions
+      - run: ls -al /__w/_temp/_actions
+      - run: ls -al /__w/_temp/_github_workflow
+      - run: ls -al /__w/_github_home
       - run: ls -al /__w/_temp
       - run: ls -al /__w
       - run: ls -al /home
       - run: find / -type d -name "varsh"
       - run: find / -type f -name "hello_world.yml"
-      - run: find / -maxdepth 5 -mindepth 1 -type d -printf '%f\n'
-      - run: ls /.dockerenv -al
+      - run: ls /.dockerenv/ -al
       - uses: actions/upload-artifact@v2
         if: always()
         with:
