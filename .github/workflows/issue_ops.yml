@@ -98,7 +98,7 @@ jobs:
 #      - run: usermod -d /github/home/varsh 0
 #      - run: cd /github/home && ls -al
       - run: pwd && ls -al
-      - run: cd /github/home/varsh
+      - run: cd /github/home
       - run: pwd && ls -al
 #      - run: ls /github/home -al
       - name: execute actions-importer
