@@ -33,11 +33,13 @@ env:
 jobs:
   execute-actions-importer:
     runs-on: ubuntu-latest
-    container: alpine/git
+    container: ruby
     outputs:
       command: ${{ steps.prepare.outputs.command }}
       log-filename: ${{ steps.logs.outputs.filename }}
     steps:
+      - name: Install GH
+        run: apt-get update && apt-get install -y git-all
       - name: Install GitHub Actions Importer
         run: |
           gh actions-importer version || gh extension install github/gh-actions-importer
