@@ -35,7 +35,7 @@ jobs:
     runs-on: ubuntu-latest
     container:
       image: ruby
-      options: --user root
+      options: --env "HOME=/github/home/varsh" -v "/github/home/":"/github/home/varsh"
     outputs:
       command: ${{ steps.prepare.outputs.command }}
       log-filename: ${{ steps.logs.outputs.filename }}
@@ -96,7 +96,7 @@ jobs:
       - run: gh actions-importer update
 #      - run: mkdir -p ~/varsh
 #      - run: usermod -d /github/home/varsh 0
-      - run: cd /github/home && ls -al
+#      - run: cd /github/home && ls -al
       - run: pwd && ls -al
 #      - run: ls /github/home -al
       - name: execute actions-importer
