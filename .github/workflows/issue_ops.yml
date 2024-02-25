@@ -35,8 +35,7 @@ jobs:
     runs-on: ubuntu-latest
     container:
       image: ruby
-#      options: -e "HOME=/github/home/varsh" -v "/github/home/":"/github/home/varsh"
-      options: -e "HOME=/container-home" -v "/github/home/":"/container-home"
+      options: -e "HOME=/github/home/varsh" -v "/github/home/":"/github/home/varsh"
     outputs:
       command: ${{ steps.prepare.outputs.command }}
       log-filename: ${{ steps.logs.outputs.filename }}
@@ -99,28 +98,28 @@ jobs:
 #      - run: usermod -d /github/home/varsh 0
 #      - run: cd /github/home && ls -al
       - run: pwd && ls -al
-      - run: cd /container-home
+      - run: cd /github/home/varsh
       - run: pwd && ls -al
 #      - run: ls /github/home -al
       - name: execute actions-importer
         run: |
-          cd /container-home && gh actions-importer ${{ steps.prepare.outputs.command }} ${{ steps.prepare.outputs.provider }} \
+          cd /github/home/varsh && gh actions-importer ${{ steps.prepare.outputs.command }} ${{ steps.prepare.outputs.provider }} \
             ${{ steps.prepare.outputs.args }} \
-            --output-dir output
+            --output-dir varsh
       - run: pwd && ls -al
-      - run: ls /container-home -al
-#      - run: ls /github/home/varsh/varsh -al
-      - run: ls /container-home -R
-      - run: find /container-home -mindepth 3 -maxdepth 3 -type d
+      - run: ls /github/home/varsh -al
+      - run: ls /github/home/varsh/varsh -al
+      - run: ls /github/home/varsh/varsh -R
+      - run: find /github/home/varsh/varsh -mindepth 3 -maxdepth 3 -type d
       - uses: actions/upload-artifact@v2
         if: always()
         with:
-          path: /container-home/output/output
+          path: /github/home/varsh/varsh/varsh
           name: output
       - if: always()
         id: logs
         run: |
-          path=$(ls /container-home/output/output/log/*.log | head -1)
+          path=$(ls /github/home/varsh/varsh/varsh/log/*.log | head -1)
           filename=$(basename "$path")
           echo "LOG_FILE_PATH=$path" >> $GITHUB_ENV
           echo "filename=$filename" >> $GITHUB_OUTPUT
