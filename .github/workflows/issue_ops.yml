@@ -108,7 +108,7 @@ jobs:
             --output-dir varsh
       - run: pwd && ls -al
       - run: ls /github/home/varsh -al
-      - run: ls varsh
+      - run: ls /github/home/varsh/varsh -al
       - uses: actions/upload-artifact@v2
         if: always()
         with:
