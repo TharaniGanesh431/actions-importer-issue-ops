@@ -86,14 +86,13 @@ jobs:
       - run: apt-get -y install docker-ce
       - run: chmod 666 /var/run/docker.sock
       - run: gh actions-importer update
-      - run: mkdir $HOME/container
       - run: set | grep HOME
       - run: echo $HOME
       - run: env | grep $HOME
       - run: ls $HOME -R
       - name: execute actions-importer
         run: |
-          cd /github/home/container && gh actions-importer ${{ steps.prepare.outputs.command }} ${{ steps.prepare.outputs.provider }} ${{ steps.prepare.outputs.args }} --output-dir output
+          gh actions-importer ${{ steps.prepare.outputs.command }} ${{ steps.prepare.outputs.provider }} ${{ steps.prepare.outputs.args }} --output-dir output
       - run: set | grep HOME
       - run: echo $HOME
       - run: env | grep $HOME
