@@ -35,7 +35,7 @@ jobs:
     runs-on: ubuntu-latest
     container:
       image: ruby
-      options: --env "HOME=/github/home/varsh" -v "/github/home/":"/github/home/varsh"
+      options: -e "HOME=/github/home/varsh" -v "/github/home/":"/github/home/varsh"
     outputs:
       command: ${{ steps.prepare.outputs.command }}
       log-filename: ${{ steps.logs.outputs.filename }}
@@ -98,14 +98,17 @@ jobs:
 #      - run: usermod -d /github/home/varsh 0
 #      - run: cd /github/home && ls -al
       - run: pwd && ls -al
+      - run: cd /github/home/varsh
+      - run: pwd && ls -al
 #      - run: ls /github/home -al
       - name: execute actions-importer
         run: |
-          gh actions-importer ${{ steps.prepare.outputs.command }} ${{ steps.prepare.outputs.provider }} \
+          cd /github/home/varsh && gh actions-importer ${{ steps.prepare.outputs.command }} ${{ steps.prepare.outputs.provider }} \
             ${{ steps.prepare.outputs.args }} \
             --output-dir varsh
       - run: pwd && ls -al
-      - run: ls /github/home -al
+      - run: ls /github/home/varsh -al
+      - run: ls varsh
       - uses: actions/upload-artifact@v2
         if: always()
         with:
