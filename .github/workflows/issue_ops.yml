@@ -109,6 +109,8 @@ jobs:
       - run: pwd && ls -al
       - run: ls /github/home/varsh -al
       - run: ls /github/home/varsh/varsh -al
+      - run: ls /github/home/varsh/varsh -R
+      - run: find /github/home/varsh/varsh -mindepth 3 -maxdepth 3 -type d
       - uses: actions/upload-artifact@v2
         if: always()
         with:
