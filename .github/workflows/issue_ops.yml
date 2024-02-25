@@ -35,15 +35,11 @@ jobs:
     runs-on: ubuntu-latest
     container:
       image: ruby
-      options: -e "HOME=/github/home/container" -v "/github/home/":"/github/home/container"
+#      options: -e "HOME=/github/home/container" -v "/github/home/":"/github/home/container"
     outputs:
       command: ${{ steps.prepare.outputs.command }}
       log-filename: ${{ steps.logs.outputs.filename }}
     steps:
-      - run: export HOME=/github/home/container
-      - run: set | grep HOME
-      - run: echo $HOME
-      - run: env | grep $HOME
       - name: Install GH
         run: apt update && apt install -y gh
       - name: Install GitHub Actions Importer
@@ -90,6 +86,7 @@ jobs:
       - run: apt-get -y install docker-ce
       - run: chmod 666 /var/run/docker.sock
       - run: gh actions-importer update
+      - run: mkdir $HOME/container
       - run: set | grep HOME
       - run: echo $HOME
       - run: env | grep $HOME
