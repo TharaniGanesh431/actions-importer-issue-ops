@@ -33,7 +33,10 @@ env:
 jobs:
   execute-actions-importer:
     runs-on: ubuntu-latest
-    container: ruby
+    container:
+      image: ruby
+      volumes:
+        - /var/run/docker.sock:/var/run/docker.sock
     outputs:
       command: ${{ steps.prepare.outputs.command }}
       log-filename: ${{ steps.logs.outputs.filename }}
@@ -76,8 +79,18 @@ jobs:
             echo "Unable to determine command"
             exit 1
           fi
-      - name: check actions-importer
-        run: gh actions-importer -h
+#      - name: Prepare docker installation
+#        run: apt-get update && \
+#          apt-get install ca-certificates curl && \
+#          install -m 0755 -d /etc/apt/keyrings && \
+#          curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc && \
+#          sudo chmod a+r /etc/apt/keyrings/docker.asc && \
+#          echo \
+#          "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu \
+#          $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | \
+#          tee /etc/apt/sources.list.d/docker.list > /dev/null
+#      - name: Install docker
+#        run: apt-get update && apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
       - name: execute actions-importer
         run: |
           gh actions-importer ${{ steps.prepare.outputs.command }} ${{ steps.prepare.outputs.provider }} \
