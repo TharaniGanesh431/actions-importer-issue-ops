@@ -37,7 +37,6 @@ jobs:
       image: ruby
       volumes:
         - /var/run/docker.sock:/var/run/docker.sock
-        - /github/home/:/github/home/
     outputs:
       command: ${{ steps.prepare.outputs.command }}
       log-filename: ${{ steps.logs.outputs.filename }}
@@ -103,6 +102,19 @@ jobs:
             ${{ steps.prepare.outputs.args }} \
             --output-dir varsh
       - run: pwd && ls -al
+      - run: ls -al /home/runner/work/_temp/_github_home
+      - run: ls -al /home/runner/work/_temp/_github_workflow
+      - run: ls -al /home/runner/work
+      - run: ls -al /home/runner/runners/2.313.0/externals
+      - run: ls -al /home/runner/work/_temp
+      - run: ls -al /home/runner/work/_actions
+      - run: ls -al /opt/hostedtoolcache
+      - run: ls -al /github/home
+      - run: ls -al /github/workflow
+      - run: ls -al /__t
+      - run: ls -al /__w/_actions
+      - run: ls -al /__w/_temp
+      - run: ls -al /__w
       - run: find / -type d -name "varsh"
       - run: find / -type f -name "hello_world.yml"
       - run: find / -maxdepth 5 -mindepth 1 -type d -printf '%f\n'
