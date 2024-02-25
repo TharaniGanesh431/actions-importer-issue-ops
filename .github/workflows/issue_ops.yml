@@ -35,12 +35,15 @@ jobs:
     runs-on: ubuntu-latest
     container:
       image: ruby
-      options: -e "HOME=/github/conhome/" -v "/github/home/":"/github/conhome/"
+      options: -e "HOME=/github/home/container" -v "/github/home/":"/github/home/container"
     outputs:
       command: ${{ steps.prepare.outputs.command }}
       log-filename: ${{ steps.logs.outputs.filename }}
     steps:
-      - run: export HOME=/github/conhome/
+      - run: export HOME=/github/home/container
+      - run: set | grep HOME
+      - run: echo $HOME
+      - run: env | grep $HOME
       - name: Install GH
         run: apt update && apt install -y gh
       - name: Install GitHub Actions Importer
@@ -87,22 +90,26 @@ jobs:
       - run: apt-get -y install docker-ce
       - run: chmod 666 /var/run/docker.sock
       - run: gh actions-importer update
+      - run: set | grep HOME
       - run: echo $HOME
+      - run: env | grep $HOME
       - run: ls $HOME -R
       - name: execute actions-importer
         run: |
-          cd /github/home && gh actions-importer ${{ steps.prepare.outputs.command }} ${{ steps.prepare.outputs.provider }} ${{ steps.prepare.outputs.args }} --output-dir output
+          cd /github/home/container && gh actions-importer ${{ steps.prepare.outputs.command }} ${{ steps.prepare.outputs.provider }} ${{ steps.prepare.outputs.args }} --output-dir output
+      - run: set | grep HOME
       - run: echo $HOME
+      - run: env | grep $HOME
       - run: ls $HOME/ -R
       - uses: actions/upload-artifact@v2
         if: always()
         with:
-          path: /github/home/results/output
+          path: /github/home/container/container/output
           name: output
       - if: always()
         id: logs
         run: |
-          path=$(ls /github/home/results/output/log/*.log | head -1)
+          path=$(ls /github/home/container/container/output/log/*.log | head -1)
           filename=$(basename "$path")
           echo "LOG_FILE_PATH=$path" >> $GITHUB_ENV
           echo "filename=$filename" >> $GITHUB_OUTPUT
