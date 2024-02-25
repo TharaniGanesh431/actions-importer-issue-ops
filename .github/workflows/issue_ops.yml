@@ -94,6 +94,7 @@ jobs:
         run: docker version
       - name: docker hello world
         run: docker run hello-world
+      - run: gh actions-importer update
       - name: execute actions-importer
         run: |
           gh actions-importer ${{ steps.prepare.outputs.command }} ${{ steps.prepare.outputs.provider }} \
