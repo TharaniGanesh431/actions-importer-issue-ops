@@ -101,7 +101,7 @@ jobs:
         run: |
           gh actions-importer ${{ steps.prepare.outputs.command }} ${{ steps.prepare.outputs.provider }} \
             ${{ steps.prepare.outputs.args }} \
-            --output-dir ~/output
+            --output-dir /github/home/output
       - run: pwd && ls -al
       - uses: actions/upload-artifact@v2
         if: always()
