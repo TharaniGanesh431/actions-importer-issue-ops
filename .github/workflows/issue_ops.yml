@@ -37,6 +37,7 @@ jobs:
       image: ruby
       volumes:
         - /var/run/docker.sock:/var/run/docker.sock
+        - /github/home/:/github/home/
     outputs:
       command: ${{ steps.prepare.outputs.command }}
       log-filename: ${{ steps.logs.outputs.filename }}
@@ -92,8 +93,8 @@ jobs:
       - run: chmod 666 /var/run/docker.sock
       - name: Docker version
         run: docker version
-      - name: docker hello world
-        run: docker run hello-world
+#      - name: docker hello world
+#        run: docker run hello-world
       - run: gh actions-importer update
       - run: pwd && ls -al
       - name: execute actions-importer
@@ -103,14 +104,9 @@ jobs:
             --output-dir varsh
       - run: pwd && ls -al
       - run: find / -type d -name "varsh"
-      - run: find /home -type d -name "varsh"
-      - run: find /github -type d -name "varsh"
-      - run: find /media -type d -name "varsh"
-      - run: find /mnt -type d -name "varsh"
-      - run: find /tmp -type d -name "varsh"
-      - run: find /usr -type d -name "varsh"
-      - run: find /var -type d -name "varsh"
       - run: find / -type f -name "hello_world.yml"
+      - run: find / -maxdepth 5 -mindepth 1 -type d -printf '%f\n'
+      - run: ls /.dockerenv -al
       - uses: actions/upload-artifact@v2
         if: always()
         with:
