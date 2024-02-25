@@ -94,11 +94,11 @@ jobs:
 #      - name: docker hello world
 #        run: docker run hello-world
       - run: gh actions-importer update
-      - run: mkdir -p ~/varsh
-      - run: sudo usermod -d /github/home/varsh 0
+#      - run: mkdir -p ~/varsh
+#      - run: sudo usermod -d /github/home/varsh 0
       - run: cd
       - run: pwd && ls -al
-      - run: ls /github/home -al
+#      - run: ls /github/home -al
       - name: execute actions-importer
         run: |
           gh actions-importer ${{ steps.prepare.outputs.command }} ${{ steps.prepare.outputs.provider }} \
