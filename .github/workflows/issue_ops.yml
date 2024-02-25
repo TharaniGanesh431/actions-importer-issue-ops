@@ -35,11 +35,12 @@ jobs:
     runs-on: ubuntu-latest
     container:
       image: ruby
-#      options: -e "HOME=/github/home/container" -v "/github/home/":"/github/home/container"
+      options: -e "HOME=/github/conhome/" -v "/github/home/":"/github/conhome/"
     outputs:
       command: ${{ steps.prepare.outputs.command }}
       log-filename: ${{ steps.logs.outputs.filename }}
     steps:
+      - run: export HOME=/github/conhome/
       - name: Install GH
         run: apt update && apt install -y gh
       - name: Install GitHub Actions Importer
