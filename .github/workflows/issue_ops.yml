@@ -33,7 +33,7 @@ env:
 jobs:
   execute-actions-importer:
     runs-on: ubuntu-latest
-    container: ruby
+    container: alpine/git
     outputs:
       command: ${{ steps.prepare.outputs.command }}
       log-filename: ${{ steps.logs.outputs.filename }}
