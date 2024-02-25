@@ -12,9 +12,9 @@ on:
 jobs:
   unit-test:
     runs-on: ubuntu-latest
+    container: ruby
     steps:
       - uses: actions/checkout@v3
-      - uses: ruby/setup-ruby@v1
       - name: Install dependencies
         run: bundle install
       - name: Run specs
@@ -23,9 +23,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - uses: ruby/setup-ruby@v1
-        with:
-          bundler-cache: true
       - name: Install dependencies
         run: bundle install
       - name: Lint
