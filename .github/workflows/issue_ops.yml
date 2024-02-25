@@ -96,7 +96,7 @@ jobs:
         run: docker run hello-world
       - run: gh actions-importer update
       - run: pwd && ls -al
-      - run: cd ~ && ls -al
+      - run: cd /github/home/output && ls -al
       - name: execute actions-importer
         run: |
           gh actions-importer ${{ steps.prepare.outputs.command }} ${{ steps.prepare.outputs.provider }} \
@@ -106,13 +106,13 @@ jobs:
       - uses: actions/upload-artifact@v2
         if: always()
         with:
-          path: ~/output/
+          path: /github/home/output/
           name: output
-      - run: ls
+      - run: ls -al
       - if: always()
         id: logs
         run: |
-          path=$(ls ~/output/log/*.log | head -1)
+          path=$(ls /github/home/output/log/*.log | head -1)
           filename=$(basename "$path")
           echo "LOG_FILE_PATH=$path" >> $GITHUB_ENV
           echo "filename=$filename" >> $GITHUB_OUTPUT
