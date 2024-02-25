@@ -96,13 +96,13 @@ jobs:
         run: docker run hello-world
       - run: gh actions-importer update
       - run: pwd && ls -al
-      - run: cd /github/home/ && ls -al
+      - run: ls /github/home/ -al
       - name: execute actions-importer
         run: |
           gh actions-importer ${{ steps.prepare.outputs.command }} ${{ steps.prepare.outputs.provider }} \
             ${{ steps.prepare.outputs.args }} \
-            --output-dir /github/home/output
-      - run: pwd && ls -al
+            --output-dir output
+      - run: ls /github/home/ -al
       - uses: actions/upload-artifact@v2
         if: always()
         with:
