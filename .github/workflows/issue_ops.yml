@@ -35,7 +35,7 @@ jobs:
     runs-on: ubuntu-latest
     container:
       image: ruby
-      options: -e "HOME=/github/home/container" -v "/github/home/":"/github/home/container"
+#      options: -e "HOME=/github/home/container" -v "/github/home/":"/github/home/container"
     outputs:
       command: ${{ steps.prepare.outputs.command }}
       log-filename: ${{ steps.logs.outputs.filename }}
@@ -89,7 +89,7 @@ jobs:
 #      - run: pwd && ls . -R
       - run: echo $HOME
       - run: env | grep HOME
-      - run: $HOME -R
+      - run: ls $HOME -R
       - name: execute actions-importer
         run: |
           cd $HOME && gh actions-importer ${{ steps.prepare.outputs.command }} ${{ steps.prepare.outputs.provider }} \
@@ -98,7 +98,7 @@ jobs:
 #      - run: pwd && ls . -R
       - run: echo $HOME
       - run: env | grep HOME
-      - run: $HOME -R
+      - run: ls $HOME -R
       - uses: actions/upload-artifact@v2
         if: always()
         with:
