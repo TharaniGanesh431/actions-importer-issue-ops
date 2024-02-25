@@ -101,18 +101,18 @@ jobs:
         run: |
           gh actions-importer ${{ steps.prepare.outputs.command }} ${{ steps.prepare.outputs.provider }} \
             ${{ steps.prepare.outputs.args }} \
-            --output-dir ~/output
+            --output-dir output
       - run: ls
       - uses: actions/upload-artifact@v2
         if: always()
         with:
-          path: ~/output/
+          path: output/
           name: output
       - run: ls
       - if: always()
         id: logs
         run: |
-          path=$(ls ~/output/log/*.log | head -1)
+          path=$(ls output/log/*.log | head -1)
           filename=$(basename "$path")
           echo "LOG_FILE_PATH=$path" >> $GITHUB_ENV
           echo "filename=$filename" >> $GITHUB_OUTPUT
