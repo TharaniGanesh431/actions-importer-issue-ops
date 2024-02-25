@@ -97,7 +97,7 @@ jobs:
             ${{ steps.prepare.outputs.args }} \
             --output-dir output
 #      - run: pwd && ls -al
-#      - run: ls /github/home/container -al
+      - run: ls /github/home/container -al
 #      - run: ls /github/home/container/output -al
 #      - run: ls /github/home/container/output -R
 #      - run: find /github/home/container/output -mindepth 3 -maxdepth 3 -type d
