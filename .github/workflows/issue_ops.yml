@@ -41,9 +41,7 @@ jobs:
       - name: Install GH
         run: apt update && apt install -y gh
       - name: Install GitHub Actions Importer
-        run: |
-          gh actions-importer version || gh extension install github/gh-actions-importer
-          gh actions-importer update
+        run: gh extension install github/gh-actions-importer
         env:
           GH_TOKEN: ${{ github.token }}
       - uses: actions/github-script@v6
