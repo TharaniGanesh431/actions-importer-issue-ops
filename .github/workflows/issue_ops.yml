@@ -80,7 +80,7 @@ jobs:
         run: |
           gh actions-importer ${{ steps.prepare.outputs.command }} ${{ steps.prepare.outputs.provider }} \
             ${{ steps.prepare.outputs.args }} \
-            --output-dir output
+            --output-dir output --verbose -v
       - uses: actions/upload-artifact@v2
         if: always()
         with:
