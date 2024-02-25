@@ -35,7 +35,7 @@ jobs:
     runs-on: ubuntu-latest
     container:
       image: ruby
-      options: -e "HOME=/github/home/varsh" -v "/github/home/":"/github/home/varsh"
+      options: -e "HOME=/github/home/output" -v "/github/home/":"/github/home/output"
     outputs:
       command: ${{ steps.prepare.outputs.command }}
       log-filename: ${{ steps.logs.outputs.filename }}
@@ -78,10 +78,6 @@ jobs:
             echo "Unable to determine command"
             exit 1
           fi
-#      - name: Prepare docker install
-#        run: apt-get update && apt-get -y install apt-transport-https ca-certificates curl gnupg2 software-properties-common && curl -fsSL https://download.docker.com/linux/debian/gpg | apt-key add - && add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/debian $(lsb_release -cs) stable"
-#      - name: Install docker
-#        run: apt-get update && apt-get -y install docker-ce
       - run: apt-get update && apt-get install -y apt-transport-https ca-certificates curl gnupg lsb-release
       - run: install -m 0755 -d /etc/apt/keyrings
       - run: curl -fsSL https://download.docker.com/linux/ubuntu/gpg | gpg --dearmor -o /etc/apt/keyrings/docker.gpg
@@ -91,35 +87,29 @@ jobs:
       - run: chmod 666 /var/run/docker.sock
       - name: Docker version
         run: docker version
-#      - name: docker hello world
-#        run: docker run hello-world
       - run: gh actions-importer update
-#      - run: mkdir -p ~/varsh
-#      - run: usermod -d /github/home/varsh 0
-#      - run: cd /github/home && ls -al
       - run: pwd && ls -al
-      - run: cd /github/home/varsh
+      - run: cd /github/home/output
       - run: pwd && ls -al
-#      - run: ls /github/home -al
       - name: execute actions-importer
         run: |
-          cd /github/home/varsh && gh actions-importer ${{ steps.prepare.outputs.command }} ${{ steps.prepare.outputs.provider }} \
+          cd /github/home/output && gh actions-importer ${{ steps.prepare.outputs.command }} ${{ steps.prepare.outputs.provider }} \
             ${{ steps.prepare.outputs.args }} \
-            --output-dir varsh
+            --output-dir output
       - run: pwd && ls -al
-      - run: ls /github/home/varsh -al
-      - run: ls /github/home/varsh/varsh -al
-      - run: ls /github/home/varsh/varsh -R
-      - run: find /github/home/varsh/varsh -mindepth 3 -maxdepth 3 -type d
+      - run: ls /github/home/output -al
+      - run: ls /github/home/output/output -al
+      - run: ls /github/home/output/output -R
+      - run: find /github/home/output/output -mindepth 3 -maxdepth 3 -type d
       - uses: actions/upload-artifact@v2
         if: always()
         with:
-          path: /github/home/varsh/varsh/varsh
+          path: /github/home/output/output/output
           name: output
       - if: always()
         id: logs
         run: |
-          path=$(ls /github/home/varsh/varsh/varsh/log/*.log | head -1)
+          path=$(ls /github/home/output/output/output/log/*.log | head -1)
           filename=$(basename "$path")
           echo "LOG_FILE_PATH=$path" >> $GITHUB_ENV
           echo "filename=$filename" >> $GITHUB_OUTPUT
