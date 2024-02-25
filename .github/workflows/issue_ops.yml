@@ -35,7 +35,7 @@ jobs:
     runs-on: ubuntu-latest
     container:
       image: ruby
-      options: -e "HOME=/github/home/output" -v "/github/home/":"/github/home/output"
+      options: -e "HOME=/github/home/container" -v "/github/home/":"/github/home/container"
     outputs:
       command: ${{ steps.prepare.outputs.command }}
       log-filename: ${{ steps.logs.outputs.filename }}
@@ -89,27 +89,27 @@ jobs:
         run: docker version
       - run: gh actions-importer update
       - run: pwd && ls -al
-      - run: cd /github/home/output
+      - run: cd /github/home/container
       - run: pwd && ls -al
       - name: execute actions-importer
         run: |
-          cd /github/home/output && gh actions-importer ${{ steps.prepare.outputs.command }} ${{ steps.prepare.outputs.provider }} \
+          cd /github/home/container && gh actions-importer ${{ steps.prepare.outputs.command }} ${{ steps.prepare.outputs.provider }} \
             ${{ steps.prepare.outputs.args }} \
             --output-dir output
       - run: pwd && ls -al
-      - run: ls /github/home/output -al
-      - run: ls /github/home/output/output -al
-      - run: ls /github/home/output/output -R
-      - run: find /github/home/output/output -mindepth 3 -maxdepth 3 -type d
+      - run: ls /github/home/container -al
+      - run: ls /github/home/container/output -al
+      - run: ls /github/home/container/output -R
+      - run: find /github/home/container/output -mindepth 3 -maxdepth 3 -type d
       - uses: actions/upload-artifact@v2
         if: always()
         with:
-          path: /github/home/output/output/output
+          path: /github/home/container/output/output
           name: output
       - if: always()
         id: logs
         run: |
-          path=$(ls /github/home/output/output/output/log/*.log | head -1)
+          path=$(ls /github/home/container/output/output/log/*.log | head -1)
           filename=$(basename "$path")
           echo "LOG_FILE_PATH=$path" >> $GITHUB_ENV
           echo "filename=$filename" >> $GITHUB_OUTPUT
